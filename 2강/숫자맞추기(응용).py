@@ -2,7 +2,7 @@ from tkinter import *
 import random
 
 answer = random.randint(1,10)
-repeat = 100
+repeat = 10
 def submit():
     user = int(입력창.get())
 
