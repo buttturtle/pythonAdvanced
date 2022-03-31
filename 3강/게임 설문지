@@ -1,0 +1,21 @@
+from tkinter import *
+win = Tk()
+win.geometry('400x500')
+win.title('설문지')
+win.configure(bg = 'papayawhip')
+
+rv1 = IntVar()
+
+label = Label(win, text='게임 설문지', bg = 'papayawhip') 
+label.pack()
+
+r1 = Radiobutton(win, text='포켓몬 레전드 아르세우스', variable=rv1, value=1, bg = 'papayawhip')
+r1.pack()
+r2 = Radiobutton(win, text='포켓몬 유나이트', variable=rv1, value=2, bg = 'papayawhip')
+r2.pack()
+r3 = Radiobutton(win, text='쿠키런 오븐브레이크', variable=rv1, value=3, bg = 'papayawhip')
+r3.pack()
+r4 = Radiobutton(win, text='슈마메2', variable=rv1, value=4, bg = 'papayawhip')
+r4.pack()
+
+win.mainloop()
