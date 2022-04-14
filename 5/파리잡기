@@ -1,0 +1,28 @@
+from tkinter import *
+from tkinter import messagebox
+import random
+
+win = Tk() 
+win.geometry('500x500') 
+win.title("그건 저의 잔상입니다만")
+cnc = None
+
+def clk():
+    win.after_cancel(cnc)
+    messagebox.showinfo('ㅅㅓㅇㄱㅗㅇ', '성공!')
+
+def move():
+    global cnc
+    xc = random.randint(50, 2500)
+    yc = random.randint(50, 450)
+    parbtn.place(x=xc, y=yc)
+    dly = random.randint(1, 1000)
+    cnc = win.after(dly, move)
+
+img = PhotoImage(file='파리.png')
+parbtn = Button(win, image=img, command=clk)
+parbtn.place(x=250, y=250)
+
+move()
+
+win.mainloop()
