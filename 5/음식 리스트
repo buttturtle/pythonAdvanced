@@ -1,0 +1,54 @@
+from tkinter import * 
+win = Tk() 
+win.geometry('200x350') 
+win.title("내가 좋아하는 음식 리스트") 
+
+음식들 = []
+f = open('list.txt', 'r')
+lines = f.readlines()
+for line in lines:
+    음식 = line.replace('\n', '')
+    음식들.append(음식)
+f.close()
+
+def 초기화(): 
+    lb.delete(0, END) 
+    for 음식 in 음식들: 
+        lb.insert(END, 음식) 
+def 추가(): 
+    lb.insert(END, entry.get())
+def 삭제(): 
+    lb.curselection()
+    lb.delete(lb.curselection()) 
+def 모두삭제(): 
+    lb.delete(0, END) 
+def 출력(): 
+    f = open('list.txt', 'w')
+    저장할음식 = lb.get(0, END) 
+    for food in 저장할음식:
+        f.write(food+'\n') 
+    f.close()
+   
+
+label = Label(win, text ="내가 좋아하는 음식 리스트") 
+label.pack()
+
+lb=Listbox(win, selectmode='single') 
+초기화()
+lb.pack() 
+
+entry = Entry(win, width = 20, bg = "light green") 
+entry.pack()
+
+btn = Button(win, text = "추 가", command = 추가) 
+btn.pack() 
+btn1 = Button(win, text = "삭 제", command = 삭제) 
+btn1.pack() 
+btn2 = Button(win, text = "모두삭제", command = 모두삭제) 
+btn2.pack() 
+btn3 = Button(win, text = "초 기 화", command = 초기화) 
+btn3.pack() 
+btn4 = Button(win, text = "출 력", command = 출력) 
+btn4.pack() 
+
+win.mainloop()
