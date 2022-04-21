@@ -1,0 +1,41 @@
+from cProfile import label
+from tkinter import *
+from tkinter import messagebox
+from webbrowser import get
+
+win=Tk()
+win.title('TF진단')
+win.resizable(False,False)
+win.geometry('600x700')
+
+ens1= IntVar()
+ens2= IntVar()
+
+titlab = Label(win, text='0에 가까울수록 T, 100에 가까울수록 F\n\n', font='20', fg= 'green')
+titlab.pack()
+
+q1 = Label(win, text='친구랑 같이 게임할 때 \n\'넌 대충 하는것 같은데 왜 이렇게 잘하니?\'')
+q1.pack()
+q1_1 = Radiobutton(win, text='고마워ㅋㅋ 나 재능 있는듯?', variable=ens1, value=-1)
+q1_1.pack()
+q1_2 = Radiobutton(win, text='나 엄청 열심히 했는데 ㅠㅠ 왜그래', variable=ens1, value=1)
+q1_2.pack()
+
+q1 = Label(win, text='시험이 끝나고 친구가 말할 때\n\'넌 대충 하는것 같은데 왜 이렇게 잘하니?\'')
+q1.pack()
+q1_1 = Radiobutton(win, text='고마워ㅋㅋ 나 재능 있는듯?', variable=ens2, value=-1)
+q1_1.pack()
+q1_2 = Radiobutton(win, text='나 엄청 열심히 했는데 ㅠㅠ 왜그래', variable=ens2, value=1)
+q1_2.pack()
+
+sco = 50
+
+def subcom():
+    global sco
+    sco = sco + 25 * ((ens1.get()) + (ens2.get()))
+    messagebox.showinfo(title='결과',message='당신의 점수는' + str(sco) + '입니다')
+
+subbut = Button(win, text='제출', command=subcom)
+subbut.pack()
+
+win.mainloop()
