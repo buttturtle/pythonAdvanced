@@ -1,0 +1,42 @@
+from tkinter import *
+
+win = Tk()
+win.geometry('600x600')
+win.title('슈슉슈슈슈슉슈슉슈슈슉')
+
+x=300
+y=300
+key=0
+
+def kydwn(e):
+    global key
+    key=e.keysym
+
+def kyup(e):
+    global key
+    key = None
+
+def refresh():
+    global y, x
+    if key == 'Up':
+        y -= 20
+    elif key == 'Down':
+        y += 20
+    elif key == 'Left':
+        x -= 20
+    elif key == 'Right':
+        x += 20
+    
+    btt.place(x=x,y=y)
+    win.after(1,refresh)
+
+win.bind('<KeyPress>', kydwn)
+win.bind('<KeyRelease>', kyup)
+
+img = PhotoImage(file = 'time.png')
+btt=Button(win, image=img)
+btt.place(x=x,y=y)
+
+win.after(100, refresh)
+
+win.mainloop()
