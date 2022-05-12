@@ -1,0 +1,85 @@
+from tkinter import *
+from tkinter import messagebox
+
+win = Tk()
+win.geometry('500x500')
+win.title('슈슉슈슈슈슉슈슉슈슈슉슈슉슈슈슈슉슈슉슈슈슉슈슉슈슈슈슉슈슉슈슈슉슈슉슈슈슈슉슈슉슈슈슉')
+
+time=10
+sco=0
+
+def play():
+    global time
+    strbut.place(x=23131321313,y=35646424321)
+    pshbut.place(x=200, y=100)
+
+    if time > 0:
+        time -= 1
+        timelab['text'] = '남은 시간 {}초'.format(time)
+        win.after(1000, play)
+    else:
+        time = 0
+        if sco == 0:
+            messagebox.showinfo("결과", '{}점 입니다. \n 안할 거면 하지 마세요!'.format(sco))
+        elif sco <= 5:
+            messagebox.showinfo("결과", '{}점 입니다. \n 보코블린급~~~~'.format(sco))
+        elif sco <= 10:
+            messagebox.showinfo("결과", '{}점 입니다. \n 리잘포스급'.format(sco))
+        elif sco <= 15:
+            messagebox.showinfo("결과", '{}점 입니다. \n 바람의 커스 가논급'.format(sco))
+        elif sco <= 20:
+            messagebox.showinfo("결과", '{}점 입니다. \n 물의 커스 가논급'.format(sco))
+        elif sco <= 25:
+            messagebox.showinfo("결과", '{}점 입니다. \n 마수 가논급'.format(sco))
+        elif sco <= 30:
+            messagebox.showinfo("결과", '{}점 입니다. \n 용사 가논급'.format(sco))
+        elif sco <= 35:
+            messagebox.showinfo("결과", '{}점 입니다. \n 불의 커스 가논급'.format(sco))
+        elif sco <= 40:
+            messagebox.showinfo("결과", '{}점 입니다. \n 번개의 커스 가논급'.format(sco))
+        elif sco <= 45:
+            messagebox.showinfo("결과", '{}점 입니다. \n 재앙 링크급'.format(sco))
+        elif sco <= 50:
+            messagebox.showinfo("결과", '{}점 입니다. \n 마스터소드급'.format(sco))
+        elif sco <= 60:
+            messagebox.showinfo("결과", '{}점 입니다. \n 마스터소드 검의시련 초급'.format(sco))
+        elif sco <= 62:
+            messagebox.showinfo("결과", '{}점 입니다. \n 마스터소드 검의시련 중급'.format(sco))
+        elif sco <= 63:
+            messagebox.showinfo("결과", '{}점 입니다. \n 마스터소드 검의시련 상급'.format(sco))
+        elif sco <= 80:
+            messagebox.showinfo("결과", '{}점 입니다. \n 요리의 커스 가논급'.format(sco))
+        elif sco > 80:
+            messagebox.showinfo("결과", '{}점 입니다. \n 꽃의 커스 가논급'.format(sco))
+
+        repbut.place(x=200, y=100)
+
+
+def upsco():
+    global sco
+    sco += 1
+    scolab['text'] = str(sco) + '점'
+
+def replay():
+    global time,sco
+    repbut.place(x=6487236478326, y=230985193579)
+    strbut.place(x=200, y=100)
+    time = 10
+    sco = 0
+
+tilab = Label(win, text="버튼 빨리 누르기")
+tilab.pack()
+
+timelab = Label(win, text="남은 시간 {}초".format(time))
+timelab.pack()
+
+scolab = Label(win, text=sco)
+scolab.pack()
+
+pshbut = Button(win, text="누르세요" , width=10, height=2, command=upsco)
+strbut = Button(win, text="시작" , width=10, height=2, command=play)
+strbut.place(x=200, y=100)
+
+repbut = Button(win, text="다시시작" , width=10, height=2, command=replay)
+
+win.mainloop()
