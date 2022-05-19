@@ -1,0 +1,56 @@
+from tkinter import *
+import random
+
+win = Tk()
+win.title("컬러게임")
+win.geometry('600x200')
+
+tilab = Label(win, text='글자의 색상을 입력하시오', font=('Serif', 20))
+tilab.pack()
+
+scolab = Label(win, text='엔터를 누르면 시작합니다', font=('Serif', 20))
+scolab.pack()
+
+timelab = Label(win, text='남은 시간 : 30초', font=('Serif', 20))
+timelab.pack()
+
+quslab = Label(win, font=('Serif', 20))
+quslab.pack()
+
+ent = Entry(win, width=20)
+ent.pack()
+
+colors = ['red','blue','green','black','pink']
+score = 0
+time = 30
+
+def count():
+    global time
+    time -= 1
+    timelab.config(text='남은 시간 : {}초'.format(time))
+    if time > 0:
+        win.after(1000, count)
+
+def start(e):
+    global score
+
+    if time == 30:
+        win.after(1000, count)
+    if time > 0:
+        next()
+
+def next():
+    global score
+    answer = ent.get()
+    if answer.lower() == colors[1].lower():
+        score += 1
+
+    ent.delete(0, END)
+    random.shuffle(colors)
+    quslab.config(fg= colors[1], text= colors[0])
+    scolab.config(text='점수 : ' + str(score))
+
+
+win.bind('<Return>', start)
+
+win.mainloop()
