@@ -1,0 +1,75 @@
+from tkinter import *
+from tkinter import messagebox
+
+win = Tk()
+win.title('틱택토독톡토도토도도도독')
+
+player = 1
+clicked = 0
+
+ply1_lab = Label(win, text='player 1:', font=('Serif', 20, 'bold'), bg='white', fg='black', height=1, width=8)
+ply1_lab.grid(row=1, column=0)
+ply1_ent = Entry(win, bd=5)
+ply1_ent.grid(row=1, column=1)
+ply2_lab = Label(win, text='player 2:', font=('Serif', 20, 'bold'), bg='white', fg='black', height=1, width=8)
+ply2_lab.grid(row=2, column=0)
+ply2_ent = Entry(win, bd=5)
+ply2_ent.grid(row=2, column=1)
+
+def click(but):
+    global player, clicked
+    clicked += 1
+    if but['text'] == '' and player == 1:
+        but['text'] = 'X'
+        player = 2
+        check()
+    elif but['text'] == '' and player == 2:
+        but['text'] = 'O'
+        player = 1
+        check()
+    else:
+        messagebox.showinfo('안돼','하지마')
+
+def check():
+    if (but1['text'] == 'X' and but2['text'] == 'X' and but3['text'] == 'X' or 
+        but4['text'] == 'X' and but5['text'] == 'X' and but6['text'] == 'X' or 
+        but7['text'] == 'X' and but8['text'] == 'X' and but9['text'] == 'X' or 
+        but1['text'] == 'X' and but4['text'] == 'X' and but7['text'] == 'X' or 
+        but2['text'] == 'X' and but5['text'] == 'X' and but8['text'] == 'X' or 
+        but3['text'] == 'X' and but6['text'] == 'X' and but9['text'] == 'X' or 
+        but1['text'] == 'X' and but5['text'] == 'X' and but9['text'] == 'X' or 
+        but3['text'] == 'X' and but5['text'] == 'X' and but7['text'] == 'X'):
+        messagebox.showinfo('안돼', '1번 이기지마 \n 근데이겼네')
+    elif (but1['text'] == 'O' and but2['text'] == 'O' and but3['text'] == 'O' or 
+        but4['text'] == 'O' and but5['text'] == 'O' and but6['text'] == 'O' or 
+        but7['text'] == 'O' and but8['text'] == 'O' and but9['text'] == 'O' or 
+        but1['text'] == 'O' and but4['text'] == 'O' and but7['text'] == 'O' or 
+        but2['text'] == 'O' and but5['text'] == 'O' and but8['text'] == 'O' or 
+        but3['text'] == 'O' and but6['text'] == 'O' and but9['text'] == 'O' or 
+        but1['text'] == 'O' and but5['text'] == 'O' and but9['text'] == 'O' or 
+        but3['text'] == 'O' and but5['text'] == 'O' and but7['text'] == 'O'):
+        messagebox.showinfo('안돼', '2번 이기지마 \n 근데이겼네')
+    elif clicked ==9:
+        messagebox.showinfo('안돼', '와무승부아시는구나겁.나.짜.증.납.니.다')
+
+
+but1 = Button(win, text='', font=('Serif', 20, 'bold'), bg='gray', fg='black', width=8, height=4, command=lambda: click(but1))
+but1.grid(row=3, column=0)
+but2 = Button(win, text='', font=('Serif', 20, 'bold'), bg='gray', fg='black', width=8, height=4, command=lambda: click(but2))
+but2.grid(row=3, column=1)
+but3 = Button(win, text='', font=('Serif', 20, 'bold'), bg='gray', fg='black', width=8, height=4, command=lambda: click(but3))
+but3.grid(row=3, column=2)
+but4 = Button(win, text='', font=('Serif', 20, 'bold'), bg='gray', fg='black', width=8, height=4, command=lambda: click(but4))
+but4.grid(row=4, column=0)
+but5 = Button(win, text='', font=('Serif', 20, 'bold'), bg='gray', fg='black', width=8, height=4, command=lambda: click(but5))
+but5.grid(row=4, column=1)
+but6 = Button(win, text='', font=('Serif', 20, 'bold'), bg='gray', fg='black', width=8, height=4, command=lambda: click(but6))
+but6.grid(row=4, column=2)
+but7 = Button(win, text='', font=('Serif', 20, 'bold'), bg='gray', fg='black', width=8, height=4, command=lambda: click(but7))
+but7.grid(row=5, column=0)
+but8 = Button(win, text='', font=('Serif', 20, 'bold'), bg='gray', fg='black', width=8, height=4, command=lambda: click(but8))
+but8.grid(row=5, column=1)
+but9 = Button(win, text='', font=('Serif', 20, 'bold'), bg='gray', fg='black', width=8, height=4, command=lambda: click(but9))
+but9.grid(row=5, column=2)
+
+win.mainloop()
