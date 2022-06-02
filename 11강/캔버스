@@ -1,0 +1,36 @@
+from tkinter import *
+from turtle import pencolor
+
+win = Tk()
+win.title('디지털 액자')
+win.geometry('600x600')
+
+label = Label(win, text='캔버스', font=('Serif', 30, 'bold'))
+label.pack()
+
+canvas = Canvas(win, width=600, height=600, bg='white')
+canvas.pack()
+
+col='black' 
+def chn_col(color):
+    global col
+    col = color
+
+bb = Button(win, text='blue', width=5, bg='blue',font=('Serif', 12), command=lambda: chn_col('blue'))
+bb.place(x=0, y=0)
+rb = Button(win, text='red', width=5, bg='red',font=('Serif', 12), command=lambda: chn_col('red'))
+rb.place(x=50, y=0)
+cb = Button(win, text='delete', width=5, bg='gray',font=('Serif', 12), command=lambda: canvas.delete('all'))
+cb.place(x=100, y=0)
+
+
+def paint(event):
+    x1 = event.x-10
+    x2 = event.x+10
+    y1 = event.y-10
+    y2 = event.y+10
+    canvas.create_oval(x1,y1,x2,y2, fill=col, outline=col)
+
+canvas.bind('<B1-Motion>', paint)
+
+win.mainloop()
