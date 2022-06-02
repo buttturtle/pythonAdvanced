@@ -1,0 +1,31 @@
+from tkinter import *
+from tkinter import messagebox
+
+count = 0
+
+def next():
+    global count
+    canvas.delete('cat')
+    canvas.create_image(400, 300, image=pho[count], tag='cat')
+
+    count += 1
+    if count >=len(pho):
+        count = 0
+    win.after(1000, next)
+
+
+win = Tk()
+win.title('디지털 액자')
+
+canvas = Canvas(win, width=800, height=600)
+canvas.pack()
+
+pho1 = PhotoImage(file='cat00.png')
+pho2 = PhotoImage(file='cat01.png')
+pho3 = PhotoImage(file='cat02.png')
+pho4 = PhotoImage(file='cat03.png')
+pho = [pho1,pho2,pho3,pho4]
+
+next()
+
+win.mainloop()
