@@ -1,0 +1,65 @@
+from tkinter import messagebox
+from tkinter import *
+import mazes
+
+win = Tk()
+win.title('ME RO')
+win.geometry('800x560')
+
+canvas = Canvas(win, width=800, height=560, bg='white')
+canvas.pack()
+
+
+def map():
+    for y in range(7):
+        for x in range(10):
+            if maze[y][x] ==0:
+                canvas.create_rectangle(x*80,y*80,x*80+80,y*80+80,fill='gray',outline='gray')
+            elif maze[y][x] ==2:
+                canvas.create_rectangle(x*80,y*80,x*80+80,y*80+80,fill='orange',outline='orange')
+
+def ply():
+    global player
+    player = canvas.create_image(plyx * 80 + 40, plyy * 80 + 40,image=cat_img,tag='cat')
+
+plyx=1
+plyy=5
+player = None
+lev = 1
+cat_img = PhotoImage(file='작은고양이.png')
+maze = mazes.mazes[lev-1]
+map()
+ply()
+
+def ky_dwn(e):
+    global plyx,plyy,lev,maze,player
+    key = e.keysym
+    if key == 'Up' and maze[plyy-1][plyx] != 0:
+        plyy-=1
+        canvas.move(player,0,-80)
+    elif key == 'Down' and maze[plyy+1][plyx] != 0:
+        plyy+=1
+        canvas.move(player,0,80)
+    elif key == 'Left' and maze[plyy][plyx-1] != 0:
+        plyx-=1
+        canvas.move(player,-80,0)
+    elif key == 'Right' and maze[plyy][plyx+1] != 0:
+        plyx+=1
+        canvas.move(player,80,0)
+
+    if maze[plyy][plyx] == 2:
+        messagebox.showinfo('도우촥!', '춸구 도우촥!')
+        plyx=1
+        plyy=5
+        player = None
+        lev += 1
+        maze = mazes.mazes[lev-1]
+        canvas.delete('all')
+        cat_img = PhotoImage(file='작은고양이.png')
+        map()
+        ply()
+
+
+win.bind('<KeyPress>', ky_dwn)
+
+win.mainloop()
