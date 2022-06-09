@@ -2,7 +2,7 @@ from tkinter import *
 from turtle import pencolor
 
 win = Tk()
-win.title('디지털 액자')
+win.title('캔버스')
 win.geometry('600x600')
 
 label = Label(win, text='캔버스', font=('Serif', 30, 'bold'))
