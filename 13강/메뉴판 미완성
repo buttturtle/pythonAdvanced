@@ -1,0 +1,67 @@
+from tkinter import *
+
+win = Tk()
+win.title('키오스크')
+
+def show_meal():
+    mealbut.configure(bg='yellow')
+    jucebut.configure(bg='white')
+    frame3.pack_forget()
+    frame2.pack()
+def show_juce():
+    mealbut.configure(bg='white')
+    jucebut.configure(bg='yellow')
+    frame2.pack_forget()
+    frame3.pack()
+
+frame1 = Frame(win,width='600',height='10')
+frame1.pack(fill='both')
+mealbut = Button(frame1,text='식사',pady=10,padx=10,bg='yellow',command=show_meal)
+mealbut.grid(row=0, column=0,pady=10,padx=10)
+jucebut = Button(frame1,text='음료',pady=10,padx=10,bg='white',command=show_juce)
+jucebut.grid(row=0, column=1,pady=10,padx=10)
+orderbut = Button(frame1,text='주문완료',pady=10,padx=10)
+orderbut.grid(row=0, column=2,pady=10,padx=10)
+order_amount = Label(frame1, text='0 원', font='Serif 15', padx=10, pady=10)
+order_amount.grid(row=0, column=3,pady=10,padx=10)
+
+meal_order = {}
+
+def add_meal(menu):
+    if menu in meal_order:
+        meal_order[menu] += 1
+    else:
+        meal_order[menu] = 1
+    print(meal_order)
+
+frame2 = Frame(win,width='600',height='10')
+frame2.pack(fill='both')
+meal1 = Button(frame2,text='떡복이 \n (4500)',pady=10,padx=10,command=lambda: add_meal('떡복이'))
+meal1.grid(row=0, column=0,pady=10,padx=10)
+meal2 = Button(frame2,text='순대 \n (1000)',pady=10,padx=10,command=lambda: add_meal('순대'))
+meal2.grid(row=0, column=1,pady=10,padx=10)
+meal3 = Button(frame2,text='모듬튀김 \n (5000)',pady=10,padx=10,command=lambda: add_meal('모듬튀김'))
+meal3.grid(row=0, column=2,pady=10,padx=10)
+meal4 = Button(frame2,text='라볶이 \n (6000)',pady=10,padx=10,command=lambda: add_meal('라볶이'))
+meal4.grid(row=0, column=3,pady=10,padx=10)
+meal5 = Button(frame2,text='라면 \n (4000)',pady=10,padx=10,command=lambda: add_meal('라면'))
+meal5.grid(row=0, column=4,pady=10,padx=10)
+meal6 = Button(frame2,text='닭볶이 \n (8000)',pady=10,padx=10,command=lambda: add_meal('닭볶이'))
+meal6.grid(row=0, column=5,pady=10,padx=10)
+
+frame3 = Frame(win,width='600',height='10')
+juce1 = Button(frame3,text='코카콜라 \n (1000)',pady=10,padx=10,command=lambda: add_meal('코카콜라'))
+juce1.grid(row=0, column=0,pady=10,padx=10)
+juce1 = Button(frame3,text='펩시레기 \n (인체에 유해해 구매 불가능)',pady=10,padx=10,command=lambda: add_meal('펩시레기'))
+juce1.grid(row=0, column=1,pady=10,padx=10)
+juce1 = Button(frame3,text='쿨피스 \n (5000)',pady=10,padx=10,command=lambda: add_meal('쿨피스'))
+juce1.grid(row=0, column=2,pady=10,padx=10)
+juce1 = Button(frame3,text='핫피스 \n (5)',pady=10,padx=10,command=lambda: add_meal('핫피스'))
+juce1.grid(row=0, column=3,pady=10,padx=10)
+juce1 = Button(frame3,text='사이다 \n (1500)',pady=10,padx=10,command=lambda: add_meal('핫피스'))
+juce1.grid(row=0, column=4,pady=10,padx=10)
+juce1 = Button(frame3,text='환타 \n (1000)',pady=10,padx=10,command=lambda: add_meal('환타'))
+juce1.grid(row=0, column=5,pady=10,padx=10)
+
+
+win.mainloop()
