@@ -1,0 +1,40 @@
+import math
+from tkinter import messagebox
+from tkinter import *
+
+win = Tk()
+win_size = [625,625]
+win.title('뱀')
+win.geometry('{}x{}'.format(win_size[0], win_size[1]))
+win.resizable(False,False)
+
+canvas = Canvas(win, width=win_size[0], height=win_size[1], bg='white')
+canvas.pack()
+
+game_scale = 25
+game_size = [win_size[0]/game_scale, win_size[1]/game_scale]
+
+plyhead = [math.floor(game_size[0]/2), math.floor(game_size[1]/2)]
+plytail = []
+
+def grid(coords, color):
+    x0 = coords[0] * game_scale
+    y0 = coords[1] * game_scale
+    x1 = (coords[0]+1) * game_scale
+    y1 = (coords[0]+1) * game_scale
+    canvas.create_rectangle(x0,y0,x1,y1,fill=color,outline='#222222')
+
+def gameloop():
+    canvas.delete('all')
+    canvas.create_rectangle(0, 0, win_size[0], win_size[1], fill='black', outline='#222222')
+
+    plytail.append([plyhead[0],plyhead[1]])
+
+    for coords in plytail:
+        grid(coords, '#00ff00')
+
+    win.after(100, gameloop)
+
+gameloop()
+
+win.mainloop()
