@@ -1,0 +1,102 @@
+import math
+import random
+from tkinter import messagebox
+from tkinter import *
+
+win = Tk()
+win_size = [625,625]
+win.title('뱀')
+win.geometry('{}x{}'.format(win_size[0], win_size[1]))
+win.resizable(False,False)
+
+canvas = Canvas(win, width=win_size[0], height=win_size[1], bg='white')
+canvas.pack()
+
+game_scale = 25
+game_size = [win_size[0]/game_scale, win_size[1]/game_scale]
+
+score = 0
+
+plyhead = [math.floor(game_size[0]/2), math.floor(game_size[1]/2)]
+plytail = []
+
+plyerspd = [1, 0]
+
+def genapp():
+    coords = [0,0]
+    x = random.randint(0,game_size[0] -1)
+    y = random.randint(0,game_size[1] -1)
+    for tail in plytail:
+        if tail[0] == x and tail[1] == y:
+            return genapp()
+
+    coords = [x,y]
+    return coords
+
+appcoord = genapp()
+
+def grid(coords, color):
+    x0 = coords[0] * game_scale
+    y0 = coords[1] * game_scale
+    x1 = (coords[0]+1) * game_scale
+    y1 = (coords[1]+1) * game_scale
+    canvas.create_rectangle(x0,y0,x1,y1,fill=color,outline='#222222')
+
+def gameloop():
+    global appcoord,plyhead,plytail,plyerspd,score
+    canvas.delete('all')
+    canvas.create_rectangle(0, 0, win_size[0], win_size[1], fill='black', outline='#222222')
+
+    plytail.append([plyhead[0], plyhead[1]])
+
+    plyhead[0] += plyerspd[0]
+    plyhead[1] += plyerspd[1]
+    
+    if plyhead[0] == game_size[0]:
+        plyhead[0] = 0
+    elif plyhead[0] == -1:
+        plyhead[0] = game_size[0] - 1
+    elif plyhead[1] == game_size[1]:
+        plyhead[1] = 0
+    elif plyhead[1] == -1:
+        plyhead[1] = game_size[1] - 1
+
+    for coords in plytail:
+        if plyhead[0] == coords[0] and plyhead[1] == coords[1]:
+            plyhead = [math.floor(game_size[0]/2), math.floor(game_size[1]/2)]
+            plytail = []
+            plyerspd = [1,0]
+            appcoord = genapp()
+            messagebox.showinfo('결과', '{}점'.format(score))
+            score = 0
+            win.after(100, gameloop)
+            return
+        grid(coords, '#00ff00')
+
+    grid(appcoord, '#ff0000')
+
+    if plyhead[0] == appcoord[0] and plyhead[1] == appcoord[1]:
+        appcoord = genapp()
+        score += 1
+    else:
+        plytail.pop(0)
+
+    win.after(100, gameloop)
+
+def keydown (e):
+    global plyerspd
+    key = e.keysym
+    if key == 'Left' and plyerspd[0] != 1:
+        plyerspd = [-1,0]
+    elif key == 'Right' and plyerspd[0] != -1:
+        plyerspd = [1,0]
+    elif key == 'Up' and plyerspd[1] != 1:
+        plyerspd = [0,-1]
+    elif key == 'Down' and plyerspd[1] != -1:
+        plyerspd = [0,1]
+
+gameloop()
+
+win.bind('<KeyPress>', keydown)
+
+win.mainloop()
