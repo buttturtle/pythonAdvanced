@@ -1,0 +1,58 @@
+import random
+from tkinter import *
+
+O = ('맑은고딕', 25,'bold')
+BG = '#21325E'
+FG = 'white'
+COL = '#CEFBC9'
+
+QUESTS = []
+f = open('eng_quiz.txt', 'r', encoding='UTF-8')
+for line in f.readlines():
+    pair = line.replace('\n', '').split('@')
+    QUESTS.append(pair)
+f.close()
+
+def make():
+    samp = random.sample(QUESTS,4)
+    ans = random.randint(0,3)
+
+    qlab.config(text=samp[ans][0])
+    for i in range(4):
+        buttons[i].config(text=samp[i][1],bg=BG)
+
+win = Tk()
+win.title('영어')
+
+def frame(frame):
+    frame.tkraise()
+
+main = Frame(win)
+main.grid(row=0, column=0, sticky='nsew')
+titlab = Label(main, width=20, height=2, text='영어문제 모음집', font=O, bg=BG,fg=FG)
+titlab.pack()
+quiz1but = Button(main,text='문제나 먹어라',font=O,bg=COL,command=lambda: frame(quiz1))
+quiz1but.pack(pady=30)
+
+quiz1 = Frame(win)
+quiz1.grid(row=0, column=0, sticky='nsew')
+qlab = Label(quiz1, width=20, height=2, text='{}', font=O, bg=BG,fg=FG)
+qlab.pack()
+
+buttons = []
+for i in range(4):
+    btn = Button(quiz1,text='{}'.format(i),width=15,font=O,bg=BG,fg=FG)
+    btn.pack()
+    buttons.append(btn)
+
+nextbut = Button(quiz1,text='"다음"',font=O,bg=COL,command=make)
+nextbut.pack(pady=30)
+mainbut = Button(quiz1,text='메인화면',font=O,bg=COL,command=lambda: frame(main))
+mainbut.pack(pady=30)
+
+
+
+frame(main)
+make()
+
+win.mainloop()
