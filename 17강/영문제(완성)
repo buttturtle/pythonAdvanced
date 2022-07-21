@@ -1,0 +1,87 @@
+import random
+from tkinter import *
+
+quiztype=1
+
+O = ('맑은고딕', 25,'bold')
+BG = '#21325E'
+FG = 'white'
+COL = '#CEFBC9'
+
+QUESTS = []
+f = open('eng_quiz.txt', 'r', encoding='UTF-8')
+for line in f.readlines():
+    pair = line.replace('\n', '').split('@')
+    QUESTS.append(pair)
+f.close()
+ans = 0
+def make():
+    global ans
+    if quiztype == 1:
+        samp = random.sample(QUESTS,4)
+        ans = random.randint(0,3)
+
+        qlab1.config(text=samp[ans][0])
+        for i in range(4):
+            buttons[i].config(text=samp[i][1],bg=BG)
+        
+    if quiztype == 2:
+        samp = random.sample(QUESTS,4)
+        ans = random.randint(0,3)
+        
+        qlab1.config(text=samp[ans][1])
+        for i in range(4):
+            buttons[i].config(text=samp[i][0],bg=BG)
+
+def click(index):
+    if ans == index:
+        buttons[index].config(bg='green')
+    else:
+        buttons[index].config(bg='red')
+
+win = Tk()
+win.title('영어')
+
+def frame(frame):
+    frame.tkraise()
+    make()
+
+def open_quiz1():
+    global quiztype
+    frame(quiz)
+    quiztype=1
+
+def open_quiz2():
+    global quiztype
+    frame(quiz)
+    quiztype=2
+
+main = Frame(win)
+main.grid(row=0, column=0, sticky='nsew')
+titlab = Label(main, width=20, height=2, text='영어문제 모음집', font=O, bg=BG,fg=FG)
+titlab.pack()
+quiz1but = Button(main,text='문제나 먹어라',font=O,bg=COL,command=open_quiz1)
+quiz1but.pack(pady=30)
+quiz2but = Button(main,text='문제나 먹어라 2탄',font=O,bg=COL,command=open_quiz2)
+quiz2but.pack(pady=30)
+
+quiz = Frame(win)
+quiz.grid(row=0, column=0, sticky='nsew')
+qlab1 = Label(quiz, width=20, height=2, text='{}', font=O, bg=BG,fg=FG)
+qlab1.pack()
+
+buttons = []
+for i in range(4):
+    btn = Button(quiz,text='{}'.format(i),width=15,font=O,bg=BG,fg=FG,command=lambda index = i:click(index))
+    btn.pack()
+    buttons.append(btn)
+
+nextbut = Button(quiz,text='"다음"',font=O,bg=COL,command=make)
+nextbut.pack(pady=30)
+mainbut = Button(quiz,text='메인화면',font=O,bg=COL,command=lambda: frame(main))
+mainbut.pack(pady=30)
+
+frame(main)
+make()
+
+win.mainloop()
